@@ -1,9 +1,9 @@
-<div class="min-h-screen bg-gradient-to-b from-indigo-50 to-white">
-    <!-- Hero Section -->
-    <div class="relative bg-indigo-600 overflow-hidden">
+<div class="min-h-screen bg-gradient-to-b from-indigo-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <!-- Hero Section in Dark Mode -->
+    <div class="relative bg-indigo-600 dark:bg-indigo-900 overflow-hidden">
         <div class="max-w-7xl mx-auto">
-            <div class="relative z-10 pb-8 bg-indigo-600 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-                <svg class="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-indigo-600 transform translate-x-1/2" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <div class="relative z-10 pb-8 bg-indigo-600 dark:bg-indigo-900 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+                <svg class="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-indigo-600 dark:text-indigo-900 transform translate-x-1/2" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
                     <polygon points="50,0 100,0 50,100 0,100" />
                 </svg>
 
@@ -21,8 +21,11 @@
                             </div>
                             <div class="hidden md:block md:ml-10">
                                 <div class="flex space-x-8">
-                                    <a href="#pricing" class="font-medium text-white hover:text-indigo-100">Prijzen</a>
+                                    <a href="#pricing" class="font-medium text-white hover:text-indigo-100">Highlights</a>
                                     <a href="#features" class="font-medium text-white hover:text-indigo-100">Features</a>
+                                    <button id="dark-mode-toggle" class="font-medium text-white hover:text-indigo-100">
+                                        🌗 Theme
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -53,29 +56,34 @@
 
                 <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
                     <div class="sm:text-center lg:text-left">
-                        <h1 class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
-                            <span class="block">Welkom bij</span>
-                            <span class="block text-indigo-200">Jouw SaaS Platform</span>
+                        <h1 class="text-4xl tracking-tight font-extrabold text-white dark:text-indigo-100 sm:text-5xl md:text-6xl">
+                            <span class="block">Welcome to</span>
+                            <span class="block text-white dark:text-indigo-100">RV Design & Development</span>
                         </h1>
                         <p class="mt-3 text-base text-indigo-100 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                             Ontdek de kracht van onze oplossingen voor jouw bedrijf. Efficiënt, schaalbaar en betrouwbaar.
                         </p>
                         <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start space-y-3 sm:space-y-0 sm:space-x-4">
                             <div class="rounded-md shadow">
-                                <a href="#pricing" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50 md:py-4 md:text-lg md:px-10">
-                                    Bekijk prijzen
+                                <a href="#pricing" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 dark:text-white bg-white dark:bg-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
+                                    Products
                                 </a>
                             </div>
                             @auth
                                 <div class="rounded-md shadow">
-                                    <a href="{{ route('dashboard') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-800 hover:bg-indigo-900 md:py-4 md:text-lg md:px-10">
+                                    <a href="{{ route('dashboard') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 dark:text-white bg-white dark:bg-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
                                         Dashboard
                                     </a>
                                 </div>
                             @else
                                 <div class="rounded-md shadow">
-                                    <a href="{{ route('login') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-800 hover:bg-indigo-900 md:py-4 md:text-lg md:px-10">
+                                    <a href="{{ route('login') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 dark:text-white bg-white dark:bg-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
                                         Login
+                                    </a>
+                                </div>
+                                <div class="rounded-md shadow">
+                                    <a href="{{ route('register') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 dark:text-white bg-white dark:bg-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
+                                        Register
                                     </a>
                                 </div>
                             @endauth
@@ -85,19 +93,19 @@
             </div>
         </div>
         <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-            <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="Dashboard preview">
+            <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full brightness-90 dark:brightness-75" src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="Dashboard preview">
         </div>
     </div>
 
-    <!-- Features Section -->
-    <div id="features" class="py-12 bg-white">
+    <!-- Features Section in Dark Mode -->
+    <div id="features" class="py-12 bg-white dark:bg-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="lg:text-center">
-                <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Mogelijkheden</h2>
-                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                <h2 class="text-base text-indigo-600 dark:text-indigo-400 font-semibold tracking-wide uppercase">Mogelijkheden</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
                     Alles wat je nodig hebt
                 </p>
-                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-400 lg:mx-auto">
                     Ontdek waarom onze klanten voor onze service kiezen.
                 </p>
             </div>
@@ -106,42 +114,42 @@
                 <dl class="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
                     <div class="relative">
                         <dt>
-                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 dark:bg-indigo-600 text-white">
                                 <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                                 </svg>
                             </div>
-                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Snelle implementatie</p>
+                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white">Snelle implementatie</p>
                         </dt>
-                        <dd class="mt-2 ml-16 text-base text-gray-500">
+                        <dd class="mt-2 ml-16 text-base text-gray-500 dark:text-gray-400">
                             Binnen enkele minuten aan de slag met onze intuïtieve interface.
                         </dd>
                     </div>
 
                     <div class="relative">
                         <dt>
-                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 dark:bg-indigo-600 text-white">
                                 <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                 </svg>
                             </div>
-                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Veilig en betrouwbaar</p>
+                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white">Veilig en betrouwbaar</p>
                         </dt>
-                        <dd class="mt-2 ml-16 text-base text-gray-500">
+                        <dd class="mt-2 ml-16 text-base text-gray-500 dark:text-gray-400">
                             Maximale beveiliging en 99.9% uptime garantie.
                         </dd>
                     </div>
 
                     <div class="relative">
                         <dt>
-                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 dark:bg-indigo-600 text-white">
                                 <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
                                 </svg>
                             </div>
-                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Schaalbaar</p>
+                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white">Schaalbaar</p>
                         </dt>
-                        <dd class="mt-2 ml-16 text-base text-gray-500">
+                        <dd class="mt-2 ml-16 text-base text-gray-500 dark:text-gray-400">
                             Groei met je behoeften mee, van startup tot enterprise.
                         </dd>
                     </div>
@@ -151,7 +159,7 @@
     </div>
 
     <!-- Pricing Section -->
-    <div id="pricing" class="py-12 bg-gray-50">
+    <div id="pricing" class="py-12 bg-white dark:bg-indigo-900">
         <livewire:plans.show-plans />
     </div>
 
