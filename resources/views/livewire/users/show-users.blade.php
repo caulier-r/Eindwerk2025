@@ -6,7 +6,7 @@
             <h2 class="text-2xl font-semibold">Gebruikersoverzicht</h2>
             <label class="inline-flex items-center">
                 <input type="checkbox" wire:model.live="showDeleted" class="form-checkbox h-4 w-4 text-blue-600">
-                <span class="ml-2 text-sm text-gray-700">Toon verwijderde gebruikers</span>
+                <span class="ml-2 text-sm text-gray-700 dark:text-white">Show Deleted Users</span>
             </label>
         </div>
 
@@ -34,9 +34,9 @@
         />
     @endif
 
-    <div class="bg-white shadow-sm rounded-lg overflow-hidden">
+    <div class="bg-white shadow-sm rounded-lg">
         <!-- Export knoppen -->
-        <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+        <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 rounded-lg">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4">
                     <span class="text-sm text-gray-700">Exporteer gebruikers:</span>
@@ -54,7 +54,7 @@
                 @if($can['create'])
                     <a href="{{ route('users.create') }}"
                        class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Nieuwe gebruiker
+                        Create user
                     </a>
                 @endif
             </div>
@@ -66,12 +66,12 @@
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-4">
                         <span class="text-sm text-gray-700">
-                            {{ count($selectedUsers) }} gebruikers geselecteerd
+                            {{ count($selectedUsers) }} selected {{ count($selectedUsers) === 1 ? 'user' : 'users' }}
                         </span>
                         <div class="flex space-x-2">
                             @if($can['delete'])
                                 <button wire:click="bulkDelete" wire:confirm="Weet je zeker dat je de geselecteerde gebruikers wilt verwijderen?" class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                                    Verwijderen
+                                    Delete
                                 </button>
                             @endif
                             @if($showDeleted && $can['restore'])

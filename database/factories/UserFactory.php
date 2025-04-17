@@ -67,10 +67,10 @@ class UserFactory extends Factory
             $role = Role::firstOrCreate(['name' => 'admin']);
             $user->assignRole($role);
         })->state(fn () => [
-            'name' => 'Admin Gebruiker',
-            'email' => 'admin@example.com',
+            'name' => 'robin caulier',
+            'email' => 'robincaulier3@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('password'),
+            'password' => Hash::make('12345678'),
             'can_set_password' => true,
 
             'google_id' => null,

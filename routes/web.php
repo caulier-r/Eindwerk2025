@@ -43,6 +43,25 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::get('/highlights', function () {
+    return view('highlights');
+})->name('highlights');
+
+Route::get('/products', function () {
+    return view('products');
+})->name('products');
+
+// Voor ingelogde gebruikers
+Route::middleware(['auth'])->group(function () {
+    Route::get('/my-plugins', function () {
+        return view('my-plugins');
+    })->name('my-plugins');
+
+    Route::get('/invoices', function () {
+        return view('invoices');
+    })->name('invoices');
+});
+
 // ✅ Groupe avec authentification obligatoire
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
