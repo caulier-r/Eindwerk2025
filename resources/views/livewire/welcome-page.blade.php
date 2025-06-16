@@ -2,7 +2,7 @@
     <!-- navbar -->
     <livewire:nav-bar />
 
-    <div class="bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div class="bg-gray-50 dark:bg-gray-900 min-h-screen pt-16">
         <!-- Hero Section -->
         <div class="relative bg-indigo-700 dark:bg-indigo-900 overflow-hidden">
             <div class="max-w-7xl mx-auto">
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-                <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80" alt="Developer desk with multiple screens">
+                <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="{{ asset('images/rv-banner.png') }}" alt="RV Design & Development banner">
             </div>
         </div>
 
@@ -171,6 +171,7 @@
                         Take your FiveM server to the next level with our premium plugins
                     </p>
                 </div>
+
 
                 <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach($featuredProducts as $product)

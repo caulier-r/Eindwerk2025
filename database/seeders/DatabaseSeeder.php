@@ -26,5 +26,8 @@ class DatabaseSeeder extends Seeder
 
         // Maak 50 test gebruikers
         User::factory(50)->create();
+
+        // ProductSeeder
+        $this->call([ProductSeeder::class,]);
     }
 }

@@ -1,6 +1,6 @@
 <div>
     {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
-    <div class="bg-indigo-700 dark:bg-indigo-900 shadow-lg"
+    <div class="bg-indigo-700 dark:bg-indigo-900 shadow-lg fixed top-0 w-full z-50"
          x-data="{
         darkMode: localStorage.getItem('darkMode') === 'dark' ||
                 (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches),
@@ -90,7 +90,7 @@
                                  tabindex="-1">
                                 <a href="{{ route('my-plugins') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">My Plugins</a>
                                 <a href="{{ route('invoices') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Invoices</a>
-                                <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Profile Settings</a>
+                                <a href="{{ route('settings.profile') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Profile Settings</a>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">
@@ -155,6 +155,9 @@
                     </template>
                     <span x-text="darkMode ? 'Light Mode' : 'Dark Mode'"></span>
                 </button>
+                <a href="{{ route('products') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    {{ __('Producten Beheren') }}
+                </a>
 
                 @auth
                     <span class="block px-3 py-2 rounded-md text-white font-medium border-b border-indigo-600 dark:border-indigo-700">
@@ -166,7 +169,7 @@
                     <a href="{{ route('invoices') }}" class="block px-3 py-2 rounded-md text-white font-medium hover:bg-indigo-600 dark:hover:bg-indigo-700">
                         Invoices
                     </a>
-                    <a href="{{ route('profile.edit') }}" class="block px-3 py-2 rounded-md text-white font-medium hover:bg-indigo-600 dark:hover:bg-indigo-700">
+                    <a href="{{ route('settings.profile') }}" class="block px-3 py-2 rounded-md text-white font-medium hover:bg-indigo-600 dark:hover:bg-indigo-700">
                         Profile Settings
                     </a>
                     <form method="POST" action="{{ route('logout') }}">

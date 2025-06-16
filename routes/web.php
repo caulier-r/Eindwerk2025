@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
+use App\Http\Controllers\ProductController;
 
 Route::get('/auth/redirect/google', [GoogleController::class, 'redirect'])->name('google.redirect');
 Route::get('/auth/callback/google', [GoogleController::class, 'callback'])->name('google.callback');
@@ -97,7 +98,10 @@ Route::middleware(['auth', 'check.plan'])->group(function () {
     })->name('orders.download');
 });
 
-
+// Product beheer routes
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('products', ProductController::class);
+});
 
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
 
