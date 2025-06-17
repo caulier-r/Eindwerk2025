@@ -1,9 +1,9 @@
 <?php
 
-
 use App\Http\Controllers\Auth\GitHubController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\StripeWebhookController;
+use App\Http\Controllers\ProductController;
 use App\Livewire\Orders\ShowOrder;
 use App\Livewire\Plans\ShowPlans;
 use App\Livewire\Subscriptions;
@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
-use App\Http\Controllers\ProductController;
 
 Route::get('/auth/redirect/google', [GoogleController::class, 'redirect'])->name('google.redirect');
 Route::get('/auth/callback/google', [GoogleController::class, 'callback'])->name('google.callback');
@@ -48,9 +47,8 @@ Route::get('/highlights', function () {
     return view('highlights');
 })->name('highlights');
 
-Route::get('/products', function () {
-    return view('products');
-})->name('products');
+// ✅ Publieke product pagina voor alle gebruikers
+Route::get('/products', [ProductController::class, 'publicIndex'])->name('products');
 
 // Voor ingelogde gebruikers
 Route::middleware(['auth'])->group(function () {
@@ -63,7 +61,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('invoices');
 });
 
-// ✅ Groupe avec authentification obligatoire
+// ✅ Groupe met authentificatie
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
@@ -81,10 +79,9 @@ Route::middleware(['auth'])->group(function () {
 
     // Subscriptions
     Route::get('/subscriptions', Subscriptions::class)->name('subscriptions');
-
 });
 
-// ✅ Groupe protégé par abonnement actif (check.plan)
+// ✅ Routes beschermd door abonnement
 Route::middleware(['auth', 'check.plan'])->group(function () {
     Route::get('/orders', \App\Livewire\Orders\ShowOrders::class)->name('orders.index');
     Route::get('/orders/{order}', ShowOrder::class)->name('orders.show');
@@ -98,9 +95,18 @@ Route::middleware(['auth', 'check.plan'])->group(function () {
     })->name('orders.download');
 });
 
-// Product beheer routes
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::resource('products', ProductController::class);
+// ✅ Product beheer voor admin/verkoper
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    // Controleer of user admin is OF verkoper rol heeft
+    Route::middleware(function ($request, $next) {
+        $user = $request->user();
+        if ($user->hasRole('admin') || $user->hasRole('verkoper') || $user->is_admin) {
+            return $next($request);
+        }
+        abort(403, 'Geen toegang tot admin gebied');
+    })->group(function () {
+        Route::resource('products', ProductController::class);
+    });
 });
 
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);

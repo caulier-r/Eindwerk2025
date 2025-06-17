@@ -8,15 +8,25 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    // ✅ Admin/verkoper product beheer
     public function index()
     {
-        $products = Product::all();
+        $products = Product::paginate(10);
         return view('admin.products.index', compact('products'));
+    }
+
+    // ✅ Publieke product pagina voor alle gebruikers
+    public function publicIndex()
+    {
+        $products = Product::where('featured', true)->orWhere('featured', false)->paginate(12);
+        $featuredProducts = Product::where('featured', true)->take(6)->get();
+
+        return view('products', compact('products', 'featuredProducts'));
     }
 
     public function create()
     {
-        return view('admin.products.create'); // Was: products.create
+        return view('admin.products.create');
     }
 
     public function store(Request $request)
@@ -29,6 +39,9 @@ class ProductController extends Controller
             'featured' => 'boolean',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        // Zet featured op false als het niet aangevinkt is
+        $validated['featured'] = $request->has('featured') ? true : false;
 
         if ($request->hasFile('image')) {
             $imageName = time() . '.' . $request->image->extension();
@@ -44,12 +57,12 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        return view('admin.products.edit', compact('product')); // Was: products.edit
+        return view('admin.products.edit', compact('product'));
     }
 
     public function show(Product $product)
     {
-        return view('admin.products.show', compact('product')); // Was: products.show
+        return view('admin.products.show', compact('product'));
     }
 
     public function update(Request $request, Product $product)
@@ -62,6 +75,9 @@ class ProductController extends Controller
             'featured' => 'boolean',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        // Zet featured op false als het niet aangevinkt is
+        $validated['featured'] = $request->has('featured') ? true : false;
 
         if ($request->hasFile('image')) {
             // Verwijder oude afbeelding als die bestaat
