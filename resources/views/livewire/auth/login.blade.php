@@ -60,7 +60,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         RateLimiter::clear($this->throttleKey());
         Session::regenerate();
 
-        $this->redirectIntended(route('dashboard'), navigate: true);
+        $this->redirectIntended(route('home'), navigate: true);
     }
 
     /**
@@ -94,7 +94,10 @@ new #[Layout('components.layouts.auth')] class extends Component {
 }; ?>
 
 <div class="flex flex-col gap-6">
-    <x-auth-header :title="__('Log in to your account')" :description="__('Enter your email and password below to log in')" />
+    <x-auth-header
+        :title="__('Welcome back 👋')"
+        :description="__('Log in to manage your plugins, bots, and tools – all in one place.')"
+    />
 
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')" />
@@ -108,7 +111,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
             required
             autofocus
             autocomplete="email"
-            placeholder="email@example.com"
+            placeholder="you@yourmail.com"
         />
 
         <!-- Password -->
@@ -119,7 +122,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 type="password"
                 required
                 autocomplete="current-password"
-                :placeholder="__('Password')"
+                :placeholder="__('Your secret password 🔐')"
             />
 
             @if (Route::has('password.request'))
@@ -130,17 +133,24 @@ new #[Layout('components.layouts.auth')] class extends Component {
         </div>
 
         <!-- Remember Me -->
-        <flux:checkbox wire:model="remember" :label="__('Remember me')" />
+        <flux:checkbox wire:model="remember" :label="__('Keep me logged in')" />
 
-        <div class="flex items-center justify-end">
-            <flux:button variant="primary" type="submit" class="w-full">{{ __('Log in') }}</flux:button>
+        <div class="relative w-full">
+            <div class="animated-border">
+                <flux:button
+                    type="submit"
+                    class="w-full px-6 py-3 bg-slate-900 text-white font-semibold rounded-xl hover:bg-slate-800 transition"
+                >
+                    Log me in 🚀
+                </flux:button>
+            </div>
         </div>
     </form>
 
     <div class="relative text-center">
         <div class="my-4 flex items-center justify-center space-x-2 text-sm text-zinc-500 dark:text-zinc-400">
             <span class="w-1/5 border-t"></span>
-            <span>{{ __('or') }}</span>
+            <span>{{ __('or log in with') }}</span>
             <span class="w-1/5 border-t"></span>
         </div>
         <div class="space-y-4">
@@ -151,8 +161,10 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
     @if (Route::has('register'))
         <div class="space-x-1 text-center text-sm text-zinc-600 dark:text-zinc-400">
-            {{ __('Don\'t have an account?') }}
-            <flux:link :href="route('register')" wire:navigate>{{ __('Sign up') }}</flux:link>
+            {{ __('New here?') }}
+            <flux:link :href="route('register')" wire:navigate>
+                {{ __('Create your free account') }}
+            </flux:link>
         </div>
     @endif
 </div>

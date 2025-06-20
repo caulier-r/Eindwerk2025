@@ -18,7 +18,7 @@
                                 <span class="block text-white">RV Design & Development</span>
                             </h1>
                             <p class="mt-3 text-base text-indigo-100 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                                Specializing in custom web development, Discord bots, and premium FiveM plugins. Bring your ideas to life with professional solutions built by Robin Vincent.
+                                Specializing in custom web development, Discord bots, and premium FiveM plugins. Bring your ideas to life with professional solutions built by Robin & Vincent.
                             </p>
                             <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                                 <div class="rounded-md shadow">
@@ -227,7 +227,7 @@
                         </a>
                     </div>
                     <div class="ml-3 inline-flex rounded-md shadow">
-                        <a href="https://discord.gg/yourserver" target="_blank" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition duration-150">
+                        <a href="https://discord.gg/TRFRzCWMqJ" target="_blank" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition duration-150">
                             Join Discord
                         </a>
                     </div>

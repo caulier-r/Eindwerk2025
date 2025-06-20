@@ -4,15 +4,20 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
+use Livewire\WithFileUploads;
 
 new #[Layout('components.layouts.auth')] class extends Component {
+    use WithFileUploads;
+
     public string $name = '';
     public string $email = '';
     public string $password = '';
     public string $password_confirmation = '';
+    public $avatar = null; // File upload property
 
     /**
      * Handle an incoming registration request.
@@ -23,9 +28,19 @@ new #[Layout('components.layouts.auth')] class extends Component {
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+            'avatar' => ['nullable', 'image', 'max:2048'], // max 2MB
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
+
+        // Handle avatar upload
+        if ($this->avatar) {
+            $avatarPath = $this->avatar->store('avatars', 'public');
+            $validated['avatar'] = Storage::url($avatarPath);
+        } else {
+            // Use default avatar (your favicon)
+            $validated['avatar'] = asset('rv-favicon.png');
+        }
 
         event(new Registered(($user = User::create($validated))));
 
@@ -62,6 +77,44 @@ new #[Layout('components.layouts.auth')] class extends Component {
             autocomplete="email"
             placeholder="email@example.com"
         />
+
+        <!-- Avatar Upload -->
+        <div>
+            <flux:label for="avatar">Profile Picture (optional)</flux:label>
+            <div class="mt-2 flex items-center gap-4">
+                <!-- Avatar Preview -->
+                <div class="relative">
+                    @if ($avatar)
+                        <img src="{{ $avatar->temporaryUrl() }}" class="h-20 w-20 rounded-full object-cover">
+                    @else
+                        <img src="{{ asset('rv-favicon.png') }}" class="h-20 w-20 rounded-full object-cover bg-gray-100">
+                    @endif
+                </div>
+
+                <!-- Upload Button -->
+                <div>
+                    <flux:input
+                        wire:model="avatar"
+                        type="file"
+                        id="avatar"
+                        accept="image/*"
+                        class="hidden"
+                    />
+                    <flux:button type="button" variant="outline" size="sm" onclick="document.getElementById('avatar').click()">
+                        Choose Avatar
+                    </flux:button>
+
+                    @if ($avatar)
+                        <flux:button type="button" variant="ghost" size="sm" wire:click="$set('avatar', null)" class="ml-2">
+                            Remove
+                        </flux:button>
+                    @endif
+                </div>
+            </div>
+            @error('avatar')
+            <flux:error>{{ $message }}</flux:error>
+            @enderror
+        </div>
 
         <!-- Password -->
         <flux:input

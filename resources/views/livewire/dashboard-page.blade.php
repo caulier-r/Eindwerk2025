@@ -16,7 +16,7 @@
                                     <svg class="h-8 w-auto sm:h-10 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                                     </svg>
-                                    <span class="ml-2 text-white font-semibold hidden md:inline">YourSaaS</span>
+                                    <span class="ml-2 text-white font-semibold hidden md:inline">RV D&D</span>
                                 </a>
                             </div>
                             <div class="hidden md:block md:ml-10">

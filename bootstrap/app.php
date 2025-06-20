@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\CheckPlan;
+use App\Http\Middleware\AdminMiddleware; // ✅ Voeg deze import toe
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'check.plan' => CheckPlan::class,
+            'admin' => AdminMiddleware::class, // ✅ Voeg admin middleware toe
         ]);
 
         // ✅ Exclure le webhook Stripe de la protection CSRF

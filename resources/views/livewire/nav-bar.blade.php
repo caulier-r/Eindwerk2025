@@ -68,12 +68,20 @@
                         <div class="relative ml-3" x-data="{ open: false }">
                             <div>
                                 <button @click="open = !open" type="button" class="flex items-center px-3 py-2 text-sm font-medium rounded-md bg-white dark:bg-indigo-600 text-indigo-700 dark:text-white hover:bg-indigo-50 dark:hover:bg-indigo-700 transition-colors duration-200 shadow-sm" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                                    <!-- Avatar -->
+                                    <img class="h-5 w-5 rounded-full object-cover mr-2"
+                                         src="{{ Auth::user()->avatar_url }}"
+                                         alt="{{ Auth::user()->name }}"
+                                    >
+
                                     <span class="mr-2">{{ Auth::user()->name }}</span>
+
                                     <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                                     </svg>
                                 </button>
                             </div>
+
                             <div x-show="open"
                                  @click.away="open = false"
                                  x-transition:enter="transition ease-out duration-100"
@@ -88,15 +96,32 @@
                                  aria-orientation="vertical"
                                  aria-labelledby="user-menu-button"
                                  tabindex="-1">
+
+                                <!-- User info in dropdown -->
+                                <div class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+                                    <div class="flex items-center">
+                                        <img class="h-10 w-10 rounded-full object-cover"
+                                             src="{{ Auth::user()->avatar_url }}"
+                                             alt="{{ Auth::user()->name }}">
+                                        <div class="ml-3">
+                                            <p class="text-sm font-medium text-gray-700 dark:text-gray-200">{{ Auth::user()->name }}</p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">{{ Auth::user()->email }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <a href="{{ route('my-plugins') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">My Plugins</a>
                                 <a href="{{ route('invoices') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Invoices</a>
                                 <a href="{{ route('settings.profile') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Profile Settings</a>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">
-                                        Log Out
-                                    </button>
-                                </form>
+
+                                <div class="border-t border-gray-200 dark:border-gray-700">
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">
+                                            Log Out
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     @else

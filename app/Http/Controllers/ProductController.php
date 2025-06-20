@@ -19,7 +19,7 @@ class ProductController extends Controller
     public function publicIndex()
     {
         $products = Product::where('featured', true)->orWhere('featured', false)->paginate(12);
-        $featuredProducts = Product::where('featured', true)->take(6)->get();
+        $featuredProducts = Product::where('featured', true)->inRandomOrder()->take(3)->get();
 
         return view('products', compact('products', 'featuredProducts'));
     }
@@ -38,6 +38,8 @@ class ProductController extends Controller
             'category' => 'required|string|max:255',
             'featured' => 'boolean',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'frameworks' => 'nullable|array',
+            'frameworks.*' => 'string',
         ]);
 
         // Zet featured op false als het niet aangevinkt is
@@ -45,7 +47,7 @@ class ProductController extends Controller
 
         if ($request->hasFile('image')) {
             $imageName = time() . '.' . $request->image->extension();
-            $request->image->storeAs('public/images', $imageName);
+            $request->image->move(public_path('images'), $imageName);
             $validated['image'] = $imageName;
         }
 
@@ -74,6 +76,8 @@ class ProductController extends Controller
             'category' => 'required|string|max:255',
             'featured' => 'boolean',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'frameworks' => 'nullable|array',
+            'frameworks.*' => 'string',
         ]);
 
         // Zet featured op false als het niet aangevinkt is

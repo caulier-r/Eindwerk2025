@@ -30,37 +30,6 @@ class User extends Authenticatable
         'github_id',
         'avatar',
     ];
-    public function registeredWithGoogle(): bool
-    {
-        return !is_null($this->google_id);
-    }
-    public function registeredWithGithub(): bool
-    {
-        return !is_null($this->github_id);
-    }
-    public function hasPlan(string $planSlug): bool
-    {
-        $subscription = $this->subscription('default');
-
-        if (! $subscription || ! $subscription->valid()) {
-            return false;
-        }
-
-        $plan = \App\Models\Plan::where('stripe_price_id', $subscription->stripe_price)->first();
-
-        return $plan && $plan->slug === $planSlug;
-    }
-
-    public function currentPlan()
-    {
-        $subscription = $this->subscription('default');
-
-        if (! $subscription || ! $subscription->valid()) {
-            return null;
-        }
-
-        return \App\Models\Plan::where('stripe_price_id', $subscription->stripe_price)->first();
-    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -87,6 +56,66 @@ class User extends Authenticatable
     }
 
     /**
+     * The "booted" method of the model.
+     * Automatically assign 'viewer' role to new users
+     */
+    protected static function booted(): void
+    {
+        static::created(function (User $user) {
+            // Only assign a role if the user doesn't have any role yet
+            if (!$user->hasAnyRole()) {
+                $user->assignRole('viewer');
+            }
+        });
+    }
+
+    /**
+     * Check if user registered with Google
+     */
+    public function registeredWithGoogle(): bool
+    {
+        return !is_null($this->google_id);
+    }
+
+    /**
+     * Check if user registered with Github
+     */
+    public function registeredWithGithub(): bool
+    {
+        return !is_null($this->github_id);
+    }
+
+    /**
+     * Check if user has a specific plan
+     */
+    public function hasPlan(string $planSlug): bool
+    {
+        $subscription = $this->subscription('default');
+
+        if (! $subscription || ! $subscription->valid()) {
+            return false;
+        }
+
+        $plan = \App\Models\Plan::where('stripe_price_id', $subscription->stripe_price)->first();
+
+        return $plan && $plan->slug === $planSlug;
+    }
+
+    /**
+     * Get the user's current plan
+     */
+    public function currentPlan()
+    {
+        $subscription = $this->subscription('default');
+
+        if (! $subscription || ! $subscription->valid()) {
+            return null;
+        }
+
+        return \App\Models\Plan::where('stripe_price_id', $subscription->stripe_price)->first();
+    }
+
+    /**
      * Get the user's initials
      */
     public function initials(): string
@@ -97,8 +126,21 @@ class User extends Authenticatable
             ->implode('');
     }
 
+    /**
+     * Get the user's avatar URL
+     */
+    public function getAvatarUrlAttribute(): string
+    {
+        return $this->avatar ?: asset('rv-favicon.png');
+    }
+
+    /**
+     * Get subscription attribute
+     */
     public function getSubscriptionAttribute()
     {
         return $this->subscription('default');
     }
+
+
 }

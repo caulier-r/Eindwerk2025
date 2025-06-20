@@ -15,11 +15,13 @@ class Product extends Model
         'image',
         'price',
         'category',
-        'featured'
+        'frameworks',
+        'featured',
     ];
 
     protected $casts = [
         'price' => 'decimal:2',
         'featured' => 'boolean',
+        'frameworks' => 'array',
     ];
 }
