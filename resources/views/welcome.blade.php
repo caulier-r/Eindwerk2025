@@ -29,6 +29,7 @@
             const isDark = document.documentElement.classList.contains('dark');
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
+
     </script>
 
 </body>

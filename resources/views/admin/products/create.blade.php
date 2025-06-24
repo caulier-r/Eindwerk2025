@@ -74,7 +74,7 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="image" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Afbeelding</label>
+                            <label for="image" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Picture</label>
                             <input type="file" name="image" id="image" accept="image/*"
                                    class="mt-1 block w-full text-sm text-gray-500 dark:text-gray-300
                                 file:mr-4 file:py-2 file:px-4
@@ -98,10 +98,10 @@
 
                         <div class="flex items-center justify-end mt-6">
                             <a href="{{ route('admin.products.index') }}" class="text-gray-500 dark:text-gray-400 mr-4">
-                                Annuleren
+                                Anulate
                             </a>
                             <button type="submit" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring ring-indigo-300 disabled:opacity-25 transition ease-in-out duration-150">
-                                Product Opslaan
+                                Create Product
                             </button>
                         </div>
                     </form>

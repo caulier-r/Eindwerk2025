@@ -172,33 +172,9 @@
                     </p>
                 </div>
 
-
                 <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach($featuredProducts as $product)
-                        <div class="group relative bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition duration-300 hover:shadow-lg">
-                            <div class="aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-700">
-                                <img src="{{ asset('images/' . $product['image']) }}" alt="{{ $product['name'] }}" class="w-full h-48 object-cover group-hover:opacity-75 transition duration-300">
-                            </div>
-                            <div class="p-6">
-                                <div class="flex justify-between items-center mb-2">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-100">
-                                {{ $product['category'] }}
-                            </span>
-                                    <span class="text-lg font-bold text-indigo-600 dark:text-indigo-400">€{{ number_format($product['price'], 2) }}</span>
-                                </div>
-                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">
-                                    {{ $product['name'] }}
-                                </h3>
-                                <p class="mt-2 text-base text-gray-500 dark:text-gray-300">
-                                    {{ $product['description'] }}
-                                </p>
-                                <div class="mt-4">
-                                    <a href="#" class="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:px-6 transition duration-150">
-                                        View Details
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <livewire:product-card :product="$product" :key="$product->id" />
                     @endforeach
                 </div>
 
@@ -238,4 +214,8 @@
 
     <!-- Footer -->
     <x-footer/>
+
+    <!-- Product Modal -->
+    <livewire:product-modal/>
+
 </div>

@@ -12,7 +12,7 @@ class WelcomePage extends Component
 
     public function mount()
     {
-        $this->featuredProducts = Product::where('featured', true)->take(3)->get()->toArray();
+        $this->featuredProducts = Product::where('featured', true)->take(3)->get();
     }
 
     public function render()

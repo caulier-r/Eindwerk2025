@@ -88,6 +88,9 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 
+    // Winkelcar
+    Route::get('/cart', \App\Livewire\Cart::class)->name('cart');
+
     // User Management
     Route::get('/users', ShowUsers::class)->name('users.index');
     Route::get('/users/create', CreateUser::class)->name('users.create');

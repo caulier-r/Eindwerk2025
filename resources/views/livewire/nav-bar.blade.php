@@ -124,6 +124,7 @@
                                 </div>
                             </div>
                         </div>
+                        <livewire:cart-icon />
                     @else
                         <a href="{{ route('login') }}" class="px-3 py-2 text-sm font-medium rounded-md bg-white dark:bg-indigo-600 text-indigo-700 dark:text-white hover:bg-indigo-50 dark:hover:bg-indigo-700 transition-colors duration-200 shadow-sm">
                             Login
