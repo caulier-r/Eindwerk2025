@@ -18,6 +18,16 @@
         </flux:navlist.group>
     </flux:navlist>
 
+    <flux:navlist.item
+        icon=""
+        :href="route('cart')"
+        :current="request()->routeIs('cart')"
+        wire:navigate
+        class="text-white hover:bg-indigo-600 dark:hover:bg-indigo-800 data-[current]:bg-indigo-600 dark:data-[current]:bg-indigo-800"
+    >
+        Cart
+    </flux:navlist.item>
+
     {{-- Admin only items --}}
     @if(auth()->user()->hasRole('admin'))
         <flux:navlist.item
@@ -51,16 +61,16 @@
         </flux:navlist.item>
     @endif
 
-    {{-- Items visible to all authenticated users --}}
-    <flux:navlist.item
-        icon="credit-card"
-        :href="route('subscriptions')"
-        :current="request()->routeIs('subscriptions')"
-        wire:navigate
-        class="text-white hover:bg-indigo-600 dark:hover:bg-indigo-800 data-[current]:bg-indigo-600 dark:data-[current]:bg-indigo-800"
-    >
-        Subscriptions
-    </flux:navlist.item>
+{{--    --}}{{-- Items visible to all authenticated users --}}
+{{--    <flux:navlist.item--}}
+{{--        icon="credit-card"--}}
+{{--        :href="route('subscriptions')"--}}
+{{--        :current="request()->routeIs('subscriptions')"--}}
+{{--        wire:navigate--}}
+{{--        class="text-white hover:bg-indigo-600 dark:hover:bg-indigo-800 data-[current]:bg-indigo-600 dark:data-[current]:bg-indigo-800"--}}
+{{--    >--}}
+{{--        Subscriptions--}}
+{{--    </flux:navlist.item>--}}
 
     <flux:navlist.item
         icon="document-text"

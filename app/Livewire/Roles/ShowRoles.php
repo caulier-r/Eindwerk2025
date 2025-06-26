@@ -2,10 +2,12 @@
 
 namespace App\Livewire\Roles;
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
 
+#[Title('Roles')]
 class ShowRoles extends Component
 {
     use WithPagination;
@@ -26,4 +28,4 @@ class ShowRoles extends Component
     {
         // Implementeer delete functionaliteit
     }
-} 
+}

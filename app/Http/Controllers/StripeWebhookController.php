@@ -2,32 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Models\Order;
+use App\Models\CartItem;
+use Illuminate\Http\Request;
+use Stripe\Webhook;
 
-class StripeWebhookController extends \Laravel\Cashier\Http\Controllers\WebhookController
+class StripeWebhookController extends Controller
 {
-    public function handleInvoicePaid($payload)
+    public function handleWebhook(Request $request)
     {
-        $customerId = $payload['data']['object']['customer'];
-        $transactionId = $payload['data']['object']['id'];
-        $amount = $payload['data']['object']['amount_paid'] / 100;
+        $payload = $request->getContent();
+        $sigHeader = $request->header('stripe-signature');
+        $endpointSecret = env('STRIPE_WEBHOOK_SECRET'); // We voegen dit later toe
 
-        // Trouver l'utilisateur lié à ce customer_id
-        $user = \App\Models\User::where('stripe_id', $customerId)->first();
-
-        if ($user) {
-            Order::updateOrCreate([
-                'transaction_id' => $transactionId,
-            ], [
-                'client_id' => $user->id,
-                'stripe_customer_id' => $customerId,
-                'status' => 'paid',
-                'amount' => $amount,
-            ]);
+        try {
+            $event = Webhook::constructEvent($payload, $sigHeader, $endpointSecret);
+        } catch (\Exception $e) {
+            return response('Webhook signature verification failed.', 400);
         }
 
-        return response()->json(['status' => 'success']);
+        // Handle successful payment
+        if ($event['type'] === 'checkout.session.completed') {
+            $session = $event['data']['object'];
+            $orderId = $session['metadata']['order_id'];
+
+            // Update order status
+            $order = Order::find($orderId);
+            if ($order) {
+                $order->update(['status' => 'paid']);
+
+                // Clear user's cart after successful payment
+                CartItem::where('user_id', $order->client_id)->delete();
+            }
+        }
+
+        return response('Webhook handled', 200);
     }
 }

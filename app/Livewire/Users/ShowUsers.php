@@ -13,7 +13,7 @@ use App\Exports\UsersExport;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
-#[Title('Gebruikersbeheer')]
+#[Title('Users')]
 class ShowUsers extends Component
 {
     use WithPagination;

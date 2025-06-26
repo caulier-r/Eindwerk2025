@@ -14,7 +14,11 @@ class ShowOrders extends Component
     public function mount()
     {
         // Fetch only orders belonging to the authenticated user
-        $this->orders = Order::where('client_id', Auth::id())->latest()->get();
+        $this->orders = Order::where('client_id', Auth::id())
+            ->where('status', 'paid')
+            ->with('orderItems.product')
+            ->latest()
+            ->get();
     }
 
     public function render()

@@ -115,23 +115,32 @@ Route::middleware(['auth'])->group(function () {
     // Subscription Management
     Route::get('/subscriptions', Subscriptions::class)->name('subscriptions');
 
-    // Checkout
-    Route::post('/checkout/{plan}', function (Request $request, Plan $plan) {
-        $user = $request->user();
+//    // Checkout
+//    Route::post('/checkout/{plan}', function (Request $request, Plan $plan) {
+//        $user = $request->user();
+//
+//        return $user->newSubscription('default', $plan->stripe_price_id)
+//            ->checkout([
+//                'success_url' => route('dashboard'),
+//                'cancel_url' => route('pricing'),
+//            ]);
+//    })->name('checkout');
 
-        return $user->newSubscription('default', $plan->stripe_price_id)
-            ->checkout([
-                'success_url' => route('dashboard'),
-                'cancel_url' => route('pricing'),
-            ]);
-    })->name('checkout');
+    // E-commerce routes
+    Route::get('/checkout', \App\Livewire\Checkout::class)->name('checkout');
+    Route::get('/checkout/success', function () {
+        return view('checkout.success');
+    })->name('checkout.success');
+    Route::get('/checkout/cancel', function () {
+        return view('checkout.cancel');
+    })->name('checkout.cancel');
 });
 
 // ==========================================
 // SUBSCRIPTION PROTECTED ROUTES
 // ==========================================
 
-Route::middleware(['auth', 'check.plan'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 
     // Order Management
     Route::get('/orders', \App\Livewire\Orders\ShowOrders::class)->name('orders.index');
@@ -161,6 +170,24 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 // ==========================================
 
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
+
+//test route voor de betaling
+Route::middleware('auth')->group(function () {
+    Route::get('/test-mark-paid', function () {
+        $order = \App\Models\Order::where('client_id', auth()->id())->latest()->first();
+        if ($order) {
+            $order->update(['status' => 'paid']);
+            \App\Models\CartItem::where('user_id', auth()->id())->delete();
+            return redirect()->route('dashboard')->with('success', 'Order marked as paid and cart cleared!');
+        }
+        return redirect()->route('dashboard')->with('error', 'No recent order found.');
+    })->name('test.mark-paid');
+
+    Route::get('/test-order-status', function () {
+        $orders = \App\Models\Order::where('client_id', auth()->id())->latest()->take(5)->get();
+        return view('test-orders', compact('orders'));
+    })->name('test.orders');
+});
 
 // ==========================================
 // AUTH PACKAGE ROUTES

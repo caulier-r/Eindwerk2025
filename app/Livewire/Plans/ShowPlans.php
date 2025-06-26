@@ -2,9 +2,11 @@
 
 namespace App\Livewire\Plans;
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use App\Models\Plan;
 
+#[Title('Plans')]
 class ShowPlans extends Component
 {
     public $plans;
