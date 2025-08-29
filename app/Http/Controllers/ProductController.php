@@ -42,7 +42,6 @@ class ProductController extends Controller
             'frameworks.*' => 'string',
         ]);
 
-        // Zet featured op false als het niet aangevinkt is
         $validated['featured'] = $request->has('featured') ? true : false;
 
         if ($request->hasFile('image')) {

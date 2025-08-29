@@ -85,7 +85,7 @@ class Checkout extends Component
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => $cartItem->product_id,
-                    'quantity' => $cartItem->quantity,
+                    'quantity' => $cartItem->quantity, //dees moet aangepast worden!!!
                     'price' => $cartItem->product->price
                 ]);
             }

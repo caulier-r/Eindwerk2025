@@ -36,9 +36,9 @@
 
                     <!-- Desktop navigation links -->
                     <div class="hidden md:ml-8 md:flex md:space-x-4">
-                        <a href="{{ route('highlights') }}" class="px-3 py-2 text-sm font-medium rounded-md bg-white dark:bg-indigo-600 text-indigo-700 dark:text-white hover:bg-indigo-50 dark:hover:bg-indigo-700 transition-colors duration-200 shadow-sm">
-                            Highlights
-                        </a>
+{{--                        <a href="{{ route('highlights') }}" class="px-3 py-2 text-sm font-medium rounded-md bg-white dark:bg-indigo-600 text-indigo-700 dark:text-white hover:bg-indigo-50 dark:hover:bg-indigo-700 transition-colors duration-200 shadow-sm">--}}
+{{--                            Highlights--}}
+{{--                        </a>--}}
                         <a href="{{ route('products') }}" class="px-3 py-2 text-sm font-medium rounded-md bg-white dark:bg-indigo-600 text-indigo-700 dark:text-white hover:bg-indigo-50 dark:hover:bg-indigo-700 transition-colors duration-200 shadow-sm">
                             Products
                         </a>
